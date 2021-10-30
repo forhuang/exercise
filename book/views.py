@@ -30,8 +30,7 @@ def get_book_data():
 @book.route('/insertBook', methods=['POST'])
 @login_required
 def insert_book():
-    book = Book(**json.loads(request.data))
-    db.session.add(book)
+    db.session.add(Book(**json.loads(request.data)))
     db.session.commit()
 
     columns, data = query_all_book()
@@ -44,8 +43,7 @@ def insert_book():
 @book.route('/deleteBook', methods=['POST'])
 @login_required
 def delete_book():
-    book_ids = json.loads(request.data)
-    for book_id in book_ids:
+    for book_id in json.loads(request.data):
         db.session.query(Book).filter(Book.book_id==book_id).delete()
 
     db.session.commit()
@@ -85,9 +83,9 @@ def share():
     writer.writerows(res['rows'])
 
     msg = build_msg(res['email'], io)
-    info = send_mail(res['email'], msg)
-
     io.close()
+
+    info = send_mail(res['email'], msg)
 
     return jsonify(info)
 
@@ -108,11 +106,9 @@ def build_msg(email, io):
     return msg
 
 def query_all_book():
-    books = db.session.query(Book).all()
-
     columns = Book.get_columns()
     data = []
-    for book in books:
+    for book in db.session.query(Book).all():
         values = {}
         for column in columns:
             accessor = column['accessor']
@@ -120,7 +116,7 @@ def query_all_book():
             value = getattr(book, accessor)
             if accessor == 'date':
                 value = value.strftime('%Y-%m-%d')
-            
+
             values[accessor] = value
 
         data.append(values)

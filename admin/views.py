@@ -1,7 +1,6 @@
 import json
 from datetime import datetime
 import hashlib
-import smtplib
 from email.mime.text import MIMEText
 from urllib.parse import urljoin
 import jwt

@@ -25,9 +25,10 @@ const BookModal = memo(() => {
     const modal = new Modal(modalRef.current)
     if (state.modalShow) {
       modal.show()
-    } else {
-      modal.hide()
+      return
     }
+
+    modal.hide()
   }, [state.modalShow])
 
   const dateChange = useCallback((_, date) => {

@@ -49,11 +49,9 @@ const LogInRoute = memo(() => {
       return
     }
 
-    if (res.success) {
-      is_authenticated = true
-      user_email = email
-      history.push('/book')
-    }
+    is_authenticated = true
+    user_email = email
+    history.push('/book')
   })
 
   useEffect(() => {

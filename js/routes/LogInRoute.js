@@ -5,7 +5,7 @@ import {
   useEffect,
   useCallback,
 } from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Modal from 'bootstrap/js/dist/modal'
 import { postServerData } from '../core'
 import { signform, marginBottom15 } from '../styles'
@@ -17,7 +17,7 @@ const LogInRoute = memo(() => {
   const [password, setPassword] = useState('')
   const [modalInfo, setModalInfo] = useState(loginModalInfo)
   const [formClass, setFormClass] = useState('needs-validation')
-  const history = useHistory()
+  const navigate = useNavigate()
 
   const emailChange = useCallback((e) => {
     setEmail(e.target.value)
@@ -51,7 +51,7 @@ const LogInRoute = memo(() => {
 
     is_authenticated = true
     user_email = email
-    history.push('/book')
+    navigate('/book')
   })
 
   useEffect(() => {

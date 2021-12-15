@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react'
-import { Redirect } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 
 const LogInRoute = lazy(() => import('./LogInRoute'))
 const SignUpRoute = lazy(() => import('./SignUpRoute'))
@@ -9,14 +9,14 @@ export default [
   {
     path: '/',
     exact: true,
-    component: () => (
-      is_authenticated ? <Redirect to="/book" /> : <Redirect to="/login" />
+    element: (
+      is_authenticated ? <Navigate replace to="/book" /> : <Navigate replace to="/login" />
     ),
   }, {
     path: '/login',
     exact: true,
-    component: () => (
-      is_authenticated ? <Redirect to="/book" /> : (
+    element: (
+      is_authenticated ? <Navigate replace to="/book" /> : (
         <Suspense fallback={null}>
           <LogInRoute />
         </Suspense>
@@ -25,8 +25,8 @@ export default [
   }, {
     path: '/signup',
     exact: true,
-    component: () => (
-      is_authenticated ? <Redirect to="/book" /> : (
+    element: (
+      is_authenticated ? <Navigate replace to="/book" /> : (
         <Suspense fallback={null}>
           <SignUpRoute />
         </Suspense>
@@ -35,12 +35,12 @@ export default [
   }, {
     path: '/book',
     exact: true,
-    component: () => (
+    element: (
       is_authenticated ? (
         <Suspense fallback={null}>
           <BookRoute />
         </Suspense>
-      ) : <Redirect to="/login" />
+      ) : <Navigate replace to="/login" />
     ),
   },
 ]

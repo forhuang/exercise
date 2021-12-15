@@ -1,23 +1,23 @@
 import { render } from 'react-dom'
 import {
-  BrowserRouter as Router,
+  BrowserRouter,
+  Routes,
   Route,
-  Switch,
 } from 'react-router-dom'
 import ExerciseNavbar from './containers/ExerciseNavbar'
 import routes from './routes'
 
 render((
-  <Router>
+  <BrowserRouter>
     <>
       <ExerciseNavbar />
-      <Switch>
+      <Routes>
         {
           routes.map((route) => (
             <Route key={route.path} {...route} />
           ))
         }
-      </Switch>
+      </Routes>
     </>
-  </Router>
+  </BrowserRouter>
 ), document.getElementById('root'))

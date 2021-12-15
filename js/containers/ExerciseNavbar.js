@@ -1,11 +1,11 @@
 import { memo, useCallback } from 'react'
-import { Link, useLocation, useHistory } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import 'bootstrap/js/src/dropdown'
 import { postServerData } from '../core'
 
 const ExerciseNavbar = memo(() => {
   const location = useLocation()
-  const history = useHistory()
+  const navigate = useNavigate()
 
   const logout = useCallback(async () => {
     const res = await postServerData('/logout', { email: user_email })
@@ -17,7 +17,7 @@ const ExerciseNavbar = memo(() => {
 
     is_authenticated = false
     user_email = ''
-    history.push('/login')
+    navigate('/login')
   })
 
   return (
